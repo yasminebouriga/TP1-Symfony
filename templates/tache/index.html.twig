@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Tâches{% endblock %}
+
+{% block body %}
+    <h1>Mes Tâches</h1>
+    <ul>
+        {% for tache in taches %}
+            <li>
+                <a href="{{ path('app_taches_detail', {'id': tache.id}) }}">
+                    {{ tache.titre }}
+                </a>
+                - Statut : {{ tache.terminee ? 'Terminée' : 'En cours' }}
+            </li>
+        {% else %}
+            <li>Aucune tâche trouvée.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
