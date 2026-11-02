@@ -2,16 +2,12 @@
 {% block title %}Liste des articles{% endblock %}
 
 {% block body %}
-<h1 class="mb-4">
-
-Articles (depuis la BDD)</h1>
+<h1 class="mb-4">Articles (depuis la BDD)</h1>
 
 {% if articles is empty %}
 <div class="alert alert-info">
 Aucun article en base de données.
-<a href="{{ path('app_article_nouveau') }}" class="alert-link">Créer un a
-
-rticle</a>
+<a href="{{ path('app_article_nouveau') }}" class="alert-link">Créer un article</a>
 </div>
 {% else %}
 <div class="table-responsive">
@@ -23,6 +19,7 @@ rticle</a>
 <th>Auteur</th>
 <th>Date</th>
 <th>Statut</th>
+<th>Actions</th> <!-- أضفنا عمود للإجراءات -->
 </tr>
 </thead>
 <tbody>
@@ -36,11 +33,14 @@ rticle</a>
 {% if article.publie %}
 <span class="badge bg-success">✅ Publié</span>
 {% else %}
-<span class="badge bg-warning text-dark"> Brouil
-
-lon</span>
-
+<span class="badge bg-warning text-dark">Brouillon</span>
 {% endif %}
+</td>
+
+<td class="text-center">
+    <a href="{{ path('app_article_detail', {id: article.id}) }}" class="btn btn-outline-primary btn-sm">
+        👁️ Voir
+    </a>
 </td>
 </tr>
 {% endfor %}
