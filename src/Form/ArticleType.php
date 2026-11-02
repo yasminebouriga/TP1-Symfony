@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Categorie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -24,6 +26,14 @@ class ArticleType extends AbstractType
                     'placeholder' => 'Saisissez le titre...',
                     'class' => 'form-control',
                 ],
+            ])
+            ->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'nom',
+                'label' => 'Catégorie',
+                'placeholder' => '-- Choisir une catégorie --',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('contenu', TextareaType::class, [
                 'label' => 'Contenu',
