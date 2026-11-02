@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<div class="container mt-4">
+    <h1>{{ categorie.nom }}</h1>
+    <p>{{ categorie.description }}</p>
+
+    
+    <p class="text-muted">Nombre d'articles : {{ categorie.articles|length }}</p>
+    <a href="{{ path('app_article_nouveau', {categorie_id: categorie.id}) }}" class="btn btn-success btn-sm">➕ Ajouter un article dans cette catégorie</a>
+
+    <h2 class="mt-4">Articles de cette catégorie</h2>
+    <ul>
+        {% for article in categorie.articles %}
+            <li><a href="{{ path('app_article_detail', {id: article.id}) }}">{{ article.titre }}</a></li>
+        {% else %}
+            <p>Aucun article dans cette catégorie.</p>
+        {% endfor %}
+    </ul>
+
+    
+    <form method="post" action="{{ path('app_categorie_supprimer', {id: categorie.id}) }}" onsubmit="return confirm('Êtes-vous sûr ?');" class="mt-3">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ categorie.id) }}">
+        <button class="btn btn-danger">Supprimer</button>
+    </form>
+</div>
+{% endblock %}
