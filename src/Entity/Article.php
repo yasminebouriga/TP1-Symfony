@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Categorie;
 use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -51,6 +52,9 @@ class Article
 
     #[ORM\Column]
     private ?bool $publie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articles')]
+    private ?Categorie $categorie = null;
 
     public function getId(): ?int
     {
@@ -113,6 +117,18 @@ class Article
     public function setPublie(bool $publie): static
     {
         $this->publie = $publie;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
